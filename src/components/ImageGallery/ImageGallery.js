@@ -5,9 +5,9 @@ import React from 'react';
 import ImageGalleryItem from '../ImageGalleryItem';
 import style from './ImageGallery.module.scss';
 
-const ImageGallery = ({ onOpenModal }) => (
+const ImageGallery = ({ onOpenModal, images }) => (
   <ul className={style.ImageGallery}>
-    <ImageGalleryItem onOpenModal={onOpenModal} />
+    <ImageGalleryItem images={images} onOpenModal={onOpenModal} />
   </ul>
 );
 export default ImageGallery;
