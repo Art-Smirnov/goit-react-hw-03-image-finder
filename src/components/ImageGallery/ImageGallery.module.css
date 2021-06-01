@@ -1,0 +1,15 @@
+.ImageGallery {
+  display: -ms-grid;
+  display: grid;
+  max-width: calc(100vw - 48px);
+  -ms-grid-columns: (minmax(320px, 1fr)) [auto-fill];
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  grid-gap: 16px;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+  list-style: none;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*# sourceMappingURL=ImageGallery.module.css.map */
