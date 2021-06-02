@@ -1,0 +1,9 @@
+.App {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr;
+  grid-template-columns: 1fr;
+  grid-gap: 16px;
+  padding-bottom: 24px;
+}
+/*# sourceMappingURL=App.module.css.map */
