@@ -5,6 +5,7 @@ import Searchbar from '../components/Searchbar';
 import ImageGallery from '../components/ImageGallery';
 import Modal from '../components/Modal';
 import Button from '../components/Button';
+import Loader from '../components/Spiner';
 
 import style from './App.module.scss';
 
@@ -31,12 +32,20 @@ class App extends Component {
   };
 
   onChangeQuery = serchQuery => {
-    this.setState({ query: serchQuery, currentPage: 1, images: [] });
+    this.setState({
+      query: serchQuery,
+      currentPage: 1,
+      images: [],
+      error: null,
+    });
   };
 
   fetchImages = () => {
     const { currentPage, query } = this.state;
     const options = { query, currentPage };
+
+    this.setState({ isLoading: true });
+
     imageApi
       .fetchImagesWithQuery(options)
       .then(images =>
@@ -45,23 +54,20 @@ class App extends Component {
           currentPage: prevState.currentPage + 1,
         })),
       )
-      .catch(error => this.setState({ error }));
-    // .finally(
-    //   window.scrollTo({
-    //     top: document.documentElement.scrollHeight,
-    //     behavior: 'smooth',
-    //   }),
-    // );
+      .catch(error => this.setState({ error }))
+      .finally(() => this.setState({ isLoading: false }));
   };
 
   render() {
-    const { showModal, images, error } = this.state;
+    const { showModal, images, error, isLoading } = this.state;
+    const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
     return (
       <div className={style.App}>
         {error && <p>Whoops, something went wrong: {error.message}</p>}
         <Searchbar onSubmit={this.onChangeQuery} />
         <ImageGallery images={images} onOpenModal={this.toggleModal} />
-        {images.length > 0 && <Button onLoadMore={this.fetchImages} />}
+        <Loader isLoading={isLoading} />
+        {shouldRenderLoadMoreBtn && <Button onLoadMore={this.fetchImages} />}
         {showModal && (
           <Modal onCloseModal={this.toggleModal}>
             <img src="" alt="" />
