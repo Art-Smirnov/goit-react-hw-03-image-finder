@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { createPortal } from 'react-dom';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import style from './Modal.module.scss';
 
@@ -17,13 +17,13 @@ class Modal extends Component {
 
   handleKeyDown = e => {
     if (e.code === 'Escape') {
-      this.props.onCloseModal();
+      this.props.setLargeURL();
     }
   };
 
   handleOverlayClick = e => {
     if (e.currentTarget === e.target) {
-      this.props.onCloseModal();
+      this.props.setLargeURL();
     }
   };
 
@@ -36,5 +36,9 @@ class Modal extends Component {
     );
   }
 }
+
+Modal.propTypes = {
+  setLargeURL: PropTypes.func.isRequired,
+};
 
 export default Modal;

@@ -3,8 +3,7 @@ import Loader from 'react-loader-spinner';
 import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 
 import style from './Spiner.module.scss';
-
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class Spiner extends Component {
   render() {
@@ -21,4 +20,9 @@ class Spiner extends Component {
     );
   }
 }
+
+Spiner.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+};
+
 export default Spiner;

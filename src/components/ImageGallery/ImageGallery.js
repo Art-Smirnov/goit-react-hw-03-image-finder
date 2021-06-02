@@ -1,13 +1,12 @@
 import React from 'react';
 
-// import PropTypes from 'prop-types';
-
 import ImageGalleryItem from '../ImageGalleryItem';
 import style from './ImageGallery.module.scss';
 
-const ImageGallery = ({ onOpenModal, images }) => (
+const ImageGallery = ({ setLargeURL, images }) => (
   <ul className={style.ImageGallery}>
-    <ImageGalleryItem images={images} onOpenModal={onOpenModal} />
+    <ImageGalleryItem images={images} setLargeURL={setLargeURL} />
   </ul>
 );
+
 export default ImageGallery;

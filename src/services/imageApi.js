@@ -10,7 +10,6 @@ const fetchImagesWithQuery = async ({
   currentPage = 1,
   pageSize = 12,
 }) => {
-  console.log(currentPage);
   const response = await axios.get(
     `${BASE_URL}?q=${query}&page=${currentPage}&key=${MY_KEY}&image_type=photo&orientation=horizontal&per_page=${pageSize}`,
   );

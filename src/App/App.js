@@ -5,30 +5,34 @@ import Searchbar from '../components/Searchbar';
 import ImageGallery from '../components/ImageGallery';
 import Modal from '../components/Modal';
 import Button from '../components/Button';
-import Loader from '../components/Spiner';
+import Spiner from '../components/Spiner';
 
 import style from './App.module.scss';
 
 class App extends Component {
   state = {
-    showModal: false,
     images: [],
     error: null,
     currentPage: 1,
     query: '',
     isLoading: false,
+    largeURL: '',
   };
-
-  // componentDidMount() {}
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.query !== this.state.query) {
       this.fetchImages();
     }
+    if (this.state.currentPage > 2) {
+      window.scrollTo({
+        top: document.documentElement.scrollHeight,
+        behavior: 'smooth',
+      });
+    }
   }
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  setLargeURL = largeURL => {
+    this.setState({ largeURL });
   };
 
   onChangeQuery = serchQuery => {
@@ -55,22 +59,24 @@ class App extends Component {
         })),
       )
       .catch(error => this.setState({ error }))
-      .finally(() => this.setState({ isLoading: false }));
+      .finally(() => {
+        return this.setState({ isLoading: false });
+      });
   };
 
   render() {
-    const { showModal, images, error, isLoading } = this.state;
+    const { largeURL, images, error, isLoading } = this.state;
     const shouldRenderLoadMoreBtn = images.length > 0 && !isLoading;
     return (
       <div className={style.App}>
         {error && <p>Whoops, something went wrong: {error.message}</p>}
         <Searchbar onSubmit={this.onChangeQuery} />
-        <ImageGallery images={images} onOpenModal={this.toggleModal} />
-        <Loader isLoading={isLoading} />
+        <ImageGallery images={images} setLargeURL={this.setLargeURL} />
+        <Spiner isLoading={isLoading} />
         {shouldRenderLoadMoreBtn && <Button onLoadMore={this.fetchImages} />}
-        {showModal && (
-          <Modal onCloseModal={this.toggleModal}>
-            <img src="" alt="" />
+        {largeURL && (
+          <Modal setLargeURL={this.setLargeURL}>
+            <img src={largeURL} alt="" />
           </Modal>
         )}
       </div>
