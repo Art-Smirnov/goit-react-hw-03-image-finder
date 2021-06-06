@@ -38,6 +38,7 @@ class Modal extends Component {
 }
 
 Modal.propTypes = {
+  children: PropTypes.node.isRequired,
   setLargeURL: PropTypes.func.isRequired,
 };
 

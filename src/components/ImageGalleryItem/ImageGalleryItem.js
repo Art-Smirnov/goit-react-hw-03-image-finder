@@ -25,6 +25,6 @@ ImageGalleryItem.propTypes = {
       largeImageURL: PropTypes.string.isRequired,
       tags: PropTypes.string.isRequired,
     }),
-  ),
+  ).isRequired,
 };
 export default ImageGalleryItem;
