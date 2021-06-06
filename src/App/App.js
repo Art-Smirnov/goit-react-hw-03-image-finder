@@ -41,6 +41,7 @@ class App extends Component {
       currentPage: 1,
       images: [],
       error: null,
+      largeURL: '',
     });
   };
 
